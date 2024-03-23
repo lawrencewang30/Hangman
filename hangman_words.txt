@@ -1,0 +1,15 @@
+cat
+dog
+fish
+bird
+apple
+happy
+sun
+tree
+book
+house
+bat
+chair
+hat
+queen
+ball
