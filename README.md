@@ -6,11 +6,11 @@ The program accounts for any sudden disconnections made by the client, which thu
 The words chosen by the server is based on the hangman_words.txt file. This can be adjusted according to the user's preferred words.  
 If the server is already full and a 4th client tries to join, they will be greeted with a server overloaded message and instantly disconnected.
 
-Executing the program (executables):
+# Executing the program (executables):  
 make all
 
-To run wordquest_server.c: 
+# To run wordquest_server.c:  
 ./wordquest_server <port_number>
 
-To run wordquest_client.c (for each corresponding client):
+# To run wordquest_client.c (for each corresponding client):  
 ./wordquest_client <IP_address> <port_number>
