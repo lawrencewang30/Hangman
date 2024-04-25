@@ -45,10 +45,8 @@ void *handle_client(void *arg) {
     int newsockfd = *(int *)arg;
     free(arg);
 
-    char buffer[1024];
     int n;
     int num_incorrect = 0;
-    int game_started = 0;
 
     struct GameMsg gameMsg;
     struct RegularMsg regularMsg;
@@ -56,20 +54,20 @@ void *handle_client(void *arg) {
     int exitFlag = 0;
     int num_words = 0;
 
-    FILE *hangman_txt;
+    FILE *wordquest_txt;
     char words[MAX_WORDS][1024];
-    hangman_txt = fopen("hangman_words.txt", "r");
-    if (hangman_txt == NULL) {
+    wordquest_txt = fopen("wordquest_words.txt", "r");
+    if (wordquest_txt == NULL) {
         error("ERROR opening file");
     }
 
-    while (fgets(words[num_words], 1024, hangman_txt) != NULL) {
+    while (fgets(words[num_words], 1024, wordquest_txt) != NULL) {
         num_words++;
         if (num_words >= MAX_WORDS) {
             break;
         }
     }
-    fclose(hangman_txt);
+    fclose(wordquest_txt);
 
     if (num_words == 0) { // case if no words in txt file
         fprintf(stderr, "No words available from the file.\n");
@@ -140,7 +138,6 @@ void *handle_client(void *arg) {
                 strcpy(gameMsg.hangmanStatus, game_word);
                 n = send(newsockfd, &gameMsg, sizeof(gameMsg), 0);
 
-                char lost_msg[1024];
                 regularMsg.msgLength = strlen("You Lose!");
                 strcpy(regularMsg.message, "You Lose!");
                 n = send(newsockfd, &regularMsg, sizeof(regularMsg), 0);
@@ -148,7 +145,6 @@ void *handle_client(void *arg) {
                     error("ERROR writing to socket");
                 }
 
-                //char game_over_msg[1024];
                 regularMsg.msgLength = strlen("Game Over!");
                 strcpy(regularMsg.message, "Game Over!");
                 n = send(newsockfd, &regularMsg, sizeof(regularMsg), 0);
@@ -198,8 +194,8 @@ int main(int argc, char *argv[]) {
     struct sockaddr_in serv_addr, cli_addr;
     int n;
     int game_started = 0;
-    struct GameMsg gameMsg;
-    struct RegularMsg regularMsg;
+    //struct GameMsg gameMsg;
+    //struct RegularMsg regularMsg;
 
 
     if (argc < 2) {

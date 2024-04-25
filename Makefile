@@ -2,14 +2,14 @@ CC = gcc
 ARGS = -Wall
 
 
-all: hangman_server hangman_client 
+all: wordquest_server wordquest_client 
 
-hangman_server: hangman_server.c
-	$(CC) $(ARGS) -o hangman_server hangman_server.c
+wordquest_server: wordquest_server.c
+	$(CC) $(ARGS) -o wordquest_server wordquest_server.c -pthread
 
-hangman_client: hangman_client.c
-	$(CC) $(ARGS) -o hangman_client hangman_client.c
+wordquest_client: wordquest_client.c
+	$(CC) $(ARGS) -o wordquest_client wordquest_client.c
 
 clean:
-	rm -f *.o hangman_server *~
-	rm -f *.o hangman_client *~
+	rm -f *.o wordquest_server *~
+	rm -f *.o wordquest_client *~
