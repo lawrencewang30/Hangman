@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
         int8_t msgFlag;
         int8_t game_word_length;
         int8_t numIncorrect;
-        char hangmanStatus[1024];
+        char wordquestStatus[1024];
         char incorrectGuesses[6];
     };
 
@@ -117,14 +117,14 @@ int main(int argc, char *argv[])
     }
 
     int length = 1024;
-    gameMsg.hangmanStatus[gameMsg.game_word_length] = '\0';
+    gameMsg.wordquestStatus[gameMsg.game_word_length] = '\0';
     printf(">>>");
     for (int i = 0; i < length; ++i) {
-        if (gameMsg.hangmanStatus[i] == '\0') {
+        if (gameMsg.wordquestStatus[i] == '\0') {
             break;
         }
-        printf("%c", gameMsg.hangmanStatus[i]);
-        if (i < length - 1 && gameMsg.hangmanStatus[i + 1] != '\0') {
+        printf("%c", gameMsg.wordquestStatus[i]);
+        if (i < length - 1 && gameMsg.wordquestStatus[i + 1] != '\0') {
             printf(" ");
         }
     }
@@ -170,7 +170,7 @@ int main(int argc, char *argv[])
         }
 
         if (gameMsg.msgFlag != 0) {
-            printf(">>>The word was %s\n", gameMsg.hangmanStatus);
+            printf(">>>The word was %s\n", gameMsg.wordquestStatus);
 
             n = recv(sockfd, &regularMsg, sizeof(regularMsg), 0);
             regularMsg.message[regularMsg.msgLength] = '\0';
@@ -185,11 +185,11 @@ int main(int argc, char *argv[])
         int length = 1024;
         printf(">>>");
         for (int i = 0; i < length; ++i) {
-            if (gameMsg.hangmanStatus[i] == '\0') {
+            if (gameMsg.wordquestStatus[i] == '\0') {
                 break;
             }
-            printf("%c", gameMsg.hangmanStatus[i]);
-            if (i < length - 1 && gameMsg.hangmanStatus[i + 1] != '\0') {
+            printf("%c", gameMsg.wordquestStatus[i]);
+            if (i < length - 1 && gameMsg.wordquestStatus[i + 1] != '\0') {
                 printf(" "); // Add space if it's not the last non-null character
             }
         }

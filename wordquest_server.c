@@ -16,7 +16,7 @@ struct GameMsg {
     int8_t msgFlag;
     int8_t game_word_length;
     int8_t numIncorrect;
-    char hangmanStatus[1024];
+    char wordquestStatus[1024];
     char incorrectGuesses[6];
 };
 
@@ -89,8 +89,8 @@ void *handle_client(void *arg) {
         gameMsg.msgFlag = 0;
         gameMsg.game_word_length = strlen(game_word);
         gameMsg.numIncorrect = num_incorrect;
-        memset(gameMsg.hangmanStatus, '_', gameMsg.game_word_length);
-        gameMsg.hangmanStatus[gameMsg.game_word_length] = '\0';
+        memset(gameMsg.wordquestStatus, '_', gameMsg.game_word_length);
+        gameMsg.wordquestStatus[gameMsg.game_word_length] = '\0';
         
         strncpy(gameMsg.incorrectGuesses, incorrect_guesses, sizeof(gameMsg.incorrectGuesses) - 1);
         gameMsg.incorrectGuesses[sizeof(gameMsg.incorrectGuesses) - 1] = '\0';
@@ -127,15 +127,15 @@ void *handle_client(void *arg) {
             gameMsg.msgFlag = 0;
             gameMsg.game_word_length = strlen(game_word);
             gameMsg.numIncorrect = num_incorrect;
-            strcpy(gameMsg.hangmanStatus, guessed_word);
-            gameMsg.hangmanStatus[gameMsg.game_word_length] = '\0';
+            strcpy(gameMsg.wordquestStatus, guessed_word);
+            gameMsg.wordquestStatus[gameMsg.game_word_length] = '\0';
             strncpy(gameMsg.incorrectGuesses, incorrect_guesses, sizeof(gameMsg.incorrectGuesses) - 1);
             gameMsg.incorrectGuesses[sizeof(gameMsg.incorrectGuesses) - 1] = '\0';
 
             if (num_incorrect == 6) {
                 exitFlag = 1;
                 gameMsg.msgFlag = strlen(game_word);
-                strcpy(gameMsg.hangmanStatus, game_word);
+                strcpy(gameMsg.wordquestStatus, game_word);
                 n = send(newsockfd, &gameMsg, sizeof(gameMsg), 0);
 
                 regularMsg.msgLength = strlen("You Lose!");
@@ -154,10 +154,10 @@ void *handle_client(void *arg) {
                 break;
             }
 
-            if (strcmp(gameMsg.hangmanStatus, game_word) == 0) {
+            if (strcmp(gameMsg.wordquestStatus, game_word) == 0) {
                 exitFlag = 1;
                 gameMsg.msgFlag = strlen(game_word);
-                strcpy(gameMsg.hangmanStatus, game_word);
+                strcpy(gameMsg.wordquestStatus, game_word);
                 n = send(newsockfd, &gameMsg, sizeof(gameMsg), 0);
 
                 regularMsg.msgLength = strlen("You Win!");
