@@ -1,5 +1,5 @@
 # WordQuest
-This program is a Hangman game implemented in C that allows up to 3 clients simultaneuously to connect with the game server.  
+This program is a word-guessing game implemented in C that allows up to 3 clients simultaneuously to connect with the game server.  
 The server allows connections from any IP address, and all clients will connect with the same port number specified by the server.  
 Each client has up to 6 incorrect guesses (one letter at a time) before they lose the game; if the word is fully guessed beforehand they win.  
 The program accounts for any sudden disconnections made by the client, which thus frees up a space for other potential clients to connect.  
